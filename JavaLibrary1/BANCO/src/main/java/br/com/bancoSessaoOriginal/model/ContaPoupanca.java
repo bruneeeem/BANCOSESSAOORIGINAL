@@ -13,23 +13,8 @@ public class ContaPoupanca extends Conta{
     
     private double taxaRendimento;
     
-    public ContaPoupanca(int numConta, int numAgencia){
-        super(numConta, numAgencia);        
-    }
-
-    @Override
-    public Double saldo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Double saque() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void depositar(double valorDep) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ContaPoupanca(int numConta, int numAgencia, double saldo, Cliente cliente){
+        super(numConta, numAgencia, saldo, cliente);        
     }
     
 }

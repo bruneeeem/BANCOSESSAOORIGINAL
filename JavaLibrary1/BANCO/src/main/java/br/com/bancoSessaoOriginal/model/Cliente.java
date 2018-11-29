@@ -12,11 +12,11 @@ package br.com.bancoSessaoOriginal.model;
 public class Cliente {
     
     private String nome;
-    private Double rg;
-    private Double cpf;
+    private String rg;
+    private String cpf;
     private Endereco endereco; 
     
-    public Cliente(String nome, Double rg, Double cpf, Endereco endereco){
+    public Cliente(String nome, String rg, String cpf,Endereco endereco){
         this.cpf = cpf;
         this.endereco=endereco;
         this.nome = nome;
@@ -31,19 +31,19 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public Double getRg() {
+    public String getRg() {
         return rg;
     }
 
-    public void setRg(Double rg) {
+    public void setRg(String rg) {
         this.rg = rg;
     }
 
-    public Double getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Double cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

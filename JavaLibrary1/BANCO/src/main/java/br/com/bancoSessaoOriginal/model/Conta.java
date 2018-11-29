@@ -9,15 +9,37 @@ package br.com.bancoSessaoOriginal.model;
  *
  * @author mario.agjunior
  */
-public abstract class Conta implements ITransacao{
+public abstract class Conta{
     private int numConta;
-    private int numAgencia;
+    private int numAgencia = 0034;
+    private double saldo;
+    private Cliente cliente;
+
     
-    public Conta(int numConta, int numAgencia){
+    public Conta(int numConta, int numAgencia, double saldo, Cliente cliente){
         this.numAgencia = numAgencia;
         this.numConta = numConta;
+        this.saldo = saldo;
+        this.cliente = cliente;
+
+        
     }
 
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
     public int getNumConta() {
         return numConta;
     }
@@ -33,5 +55,6 @@ public abstract class Conta implements ITransacao{
     public void setNumAgencia(int numAgencia) {
         this.numAgencia = numAgencia;
     }
+
 
 }

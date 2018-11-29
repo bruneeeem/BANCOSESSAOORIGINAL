@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.bancoSessaoOriginal.servlets.Conta;
+package br.com.bancoSessaoOriginal.servlets.conta;
 
 /**
  *
  * @author mario.agjunior
  */
-public class AdicionarContaServlet {
+public class RemoverClienteServlet {
     
 }
