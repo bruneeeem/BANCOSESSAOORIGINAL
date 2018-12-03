@@ -11,6 +11,7 @@ package br.com.bancoSessaoOriginal.model;
  */
 public class Cliente {
     
+    private int id;
     private String nome;
     private String rg;
     private String cpf;
@@ -21,6 +22,9 @@ public class Cliente {
         this.endereco=endereco;
         this.nome = nome;
         this.rg = rg;
+    }
+    public Cliente(){
+        
     }
 
     public String getNome() {
@@ -54,4 +58,13 @@ public class Cliente {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
 }

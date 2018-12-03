@@ -55,18 +55,19 @@ public class ClienteDAO implements ICrud<Cliente>{
             //preparedStatement.setDate(1, produto.getDatahora());
             preparedStatement.setString(1, cliente.getNome());
             preparedStatement.setString(2, cliente.getRg());
-            preparedStatement.setString(2, cliente.getCpf());
+            preparedStatement.setString(3, cliente.getCpf());
             //Executa o comando no banco de dados
             preparedStatement.execute();
             //coleta o ID do cliente gerado
             ResultSet resultado = preparedStatement.getGeneratedKeys();
-            long id = 0;
+            long id = 0;            
             if(resultado.next()){
                 id = resultado.getLong(1);
                 insereEndereco(cliente.getEndereco(), id);
             }
             
         }
+     
         finally {
             //Se o statement ainda estiver aberto, realiza seu fechamento
             if (preparedStatement != null && !preparedStatement.isClosed()) {
@@ -84,7 +85,7 @@ public class ClienteDAO implements ICrud<Cliente>{
         //Monta a string de inserção de um produto no BD,
         //utilizando os dados do produto passados como parâmetro
         String sql = "INSERT INTO ENDERECO (RUA, NUMERO, COMPLEMENTO, BAIRRO, CIDADE, ESTADO, IDCLIENTE) "
-                + "VALUES (?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         //Conexão para abertura e fechamento
         Connection connection = null;
@@ -98,13 +99,13 @@ public class ClienteDAO implements ICrud<Cliente>{
             preparedStatement = connection.prepareStatement(sql);
             //Configura os parâmetros do "PreparedStatement"
             //preparedStatement.setDate(1, produto.getDatahora());
-            preparedStatement.setString (1, endereco.getRua());
+            preparedStatement.setString(1, endereco.getRua());
             preparedStatement.setString(2, endereco.getNumero());
             preparedStatement.setString(3, endereco.getComplemento());
             preparedStatement.setString(4, endereco.getBairro());
-            preparedStatement.setString(4, endereco.getCidade());
-            preparedStatement.setString(5, endereco.getEstado());
-            preparedStatement.setLong(6, idCliente);
+            preparedStatement.setString(5, endereco.getCidade());
+            preparedStatement.setString(6, endereco.getEstado());
+            preparedStatement.setLong(7, idCliente);
             //Executa o comando no banco de dados
             preparedStatement.execute();
         } finally {
@@ -117,6 +118,55 @@ public class ClienteDAO implements ICrud<Cliente>{
                 connection.close();
             }
         }
+    }
+    
+    public static List<Cliente> obterIdCliente()throws SQLException, Exception {
+        String sql = "SELECT * FROM CLIENTE";
+        
+        //Conexão para abertura e fechamento
+        Connection connection = null;
+        //Statement para obtenção através da conexão, execução de
+        //comandos SQL e fechamentos
+        PreparedStatement preparedStatement = null;
+        //Armazenará os resultados do banco de dados
+        ResultSet result = null;
+        try {
+            //Abre uma conexão com o banco de dados
+            connection = obterConexao();
+            //Cria um statement para execução de instruções SQL
+            preparedStatement = connection.prepareStatement(sql);
+            
+                        //Executa a consulta SQL no banco de dados
+            result = preparedStatement.executeQuery();
+            List<Cliente> clientes = new ArrayList<Cliente>();
+            
+            //Verifica se há pelo menos um resultado
+            while (result.next()) {
+                //Cria uma instância de Produto e popula com os valores do BD
+                
+                Cliente cliente = new Cliente();
+                cliente.setId(result.getInt("ID"));                         
+                clientes.add(cliente);
+
+            }
+            
+            return clientes;
+        } finally {
+            //Se o result ainda estiver aberto, realiza seu fechamento
+            if (result != null && !result.isClosed()) {
+                result.close();
+            }
+            //Se o statement ainda estiver aberto, realiza seu fechamento
+            if (preparedStatement != null && !preparedStatement.isClosed()) {
+                preparedStatement.close();
+            }
+            //Se a conexão ainda estiver aberta, realiza seu fechamento
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        }
+        
+ 
     }
     
     @Override

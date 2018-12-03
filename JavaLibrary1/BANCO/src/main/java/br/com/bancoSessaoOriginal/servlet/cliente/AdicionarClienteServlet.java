@@ -24,6 +24,7 @@ import br.com.bancoSessaoOriginal.model.Cliente;
  */
 import br.com.bancoSessaoOriginal.model.Endereco;
 import java.text.ParseException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -35,6 +36,17 @@ public class AdicionarClienteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
+        
+        ClienteDAO idCliente = new ClienteDAO();
+        try {
+            List<Cliente> clientes = idCliente.obterIdCliente();
+            request.setAttribute("clientes", clientes);
+        } catch (Exception ex) {
+            Logger.getLogger(AdicionarClienteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        request.setAttribute("nome", "");
+        
         RequestDispatcher dispatcher
                 = request.getRequestDispatcher("/WEB-INF/Cliente/cadastroCliente.jsp");
         dispatcher.forward(request, response);
@@ -45,7 +57,7 @@ public class AdicionarClienteServlet extends HttpServlet {
         String nome = request.getParameter("txtNome");
         String rg = request.getParameter("txtRg");
         String cpf = request.getParameter("txtCpf");
-        //endereco
+        
         String rua = request.getParameter("txtRua");
         String numero = request.getParameter("txtNum");
         String complemento = request.getParameter("txtComp");
@@ -60,11 +72,11 @@ public class AdicionarClienteServlet extends HttpServlet {
         
         try {
             
-            cliente.setEndereco(endereco);
+//            cliente.setEndereco(endereco);
             clienteDAO.cadastrar(cliente);
             
         } catch (Exception e) {
-             
+             System.out.println(e.getMessage());
         }
             request.setAttribute("cliente", cliente); 
             request.setAttribute("endereco", endereco); 
